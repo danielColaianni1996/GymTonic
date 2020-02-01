@@ -58,6 +58,7 @@ namespace GymTonic.Controllers
         {
             if (ModelState.IsValid)
             {
+                utenti.DataInserimento = DateTime.Now;
                 _context.Add(utenti);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

@@ -147,6 +147,11 @@ namespace GymTonic.Controllers
 
             if (ModelState.IsValid)
             {
+                if(schedePersonali.DataInizio > schedePersonali.DataFine)
+                {
+                    ModelState.AddModelError("DataInizio", "La data di inizio è maggiore della data di scadenza");
+                    return View(schedePersonali);
+                }
                 try
                 {
                     schedePersonali.Update(_context);

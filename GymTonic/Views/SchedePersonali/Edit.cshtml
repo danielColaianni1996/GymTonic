@@ -12,14 +12,16 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="Utente" />
+            <input type="hidden" asp-for="Scheda" />
             <div class="form-group">
                 <label asp-for="Utente" class="control-label"></label>
-                <input asp-for="Utente" class="form-control" disabled />
+                <label  class="form-control" disabled> @Model.Utente</label> 
                 <span asp-validation-for="Utente" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Scheda" class="control-label"></label>
-                <input asp-for="Scheda" class="form-control" disabled />
+                <label class="form-control" disabled> @Model.Scheda</label>
                 <span asp-validation-for="Scheda" class="text-danger"></span>
             </div>
             <div class="form-group">

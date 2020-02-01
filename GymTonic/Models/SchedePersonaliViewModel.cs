@@ -53,8 +53,8 @@ namespace GymTonic.Models
             model.IsActive = schedePersonali.IsAttiva;
             //model.Utenti = context.Utenti.ToList();
             //model.Schede = context.Schede.ToList();
-            model.DataInizio = DateTime.Now;
-            model.DataFine = DateTime.Now.AddMonths(-1);
+            model.DataInizio = schedePersonali.DataInizio;
+            model.DataFine = schedePersonali.DataFine;
             return model;
         }
         public static List<IndexViewModel>  ToViewModel( List<SchedePersonali> schede, GymDataContest context)
@@ -64,7 +64,7 @@ namespace GymTonic.Models
             {
                 schedeViewModel.Add(new IndexViewModel
                 {
-                    
+                    Id= scheda.Id,
                     Scheda = context.Schede.Where(x => x.Id == scheda.SchedaId).FirstOrDefault().Nome,
                     Utente = context.Utenti.Where(x => x.Id == scheda.UtenteId).FirstOrDefault().Nome,
                     DataInizio = scheda.DataInizio,
