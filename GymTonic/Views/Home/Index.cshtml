@@ -1,0 +1,160 @@
+﻿@model HomeViewModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+
+<div class=" row">
+    <div class="col-xl-3 col-md-6 mb-3">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-1">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">alert schede in scadenza @Model.Scadenze</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6 mb-3">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-1">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Utenti attivi @Model.Utenti</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6 mb-3">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-1">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Schede create @Model.Schede</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6 mb-3">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-1">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Esercizi creati @Model.Esercizi</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div id="tabellaUtenti" class="card col-lg-6">
+        <div class="card-header">
+            <h6 class="card-title "> Ultimi 10 utenti inseriti</h6>
+        </div>
+        <div class="card-body ">
+            <table class="display tabella table-responsive " id="dataTable" width="100%">
+                <thead>
+                    <tr>
+                        <th>
+                            Utente
+                        </th>
+                        <th>
+                            Cognome
+                        </th>
+                        <th>
+                            Mail
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.ListaUtenti)
+                    {
+                        <tr>
+                            <td>
+                                @item.Nome
+                            </td>
+                            <td>
+                                @item.Cognome
+                            </td>
+                            <td>
+                                @item.Mail
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div id="tabellaUtenti" class="card shadow col-lg-6">
+        <div class="card-header">
+            <h6 class="card-title "> Schede in scadenza</h6>
+        </div>
+        <div class="card-body ">
+            <table class="display tabella table-responsive" id="dataTable" width="100%">
+                <thead>
+                    <tr>
+                        <th>
+                            Utente
+                        </th>
+                        <th>
+                            Scheda
+                        </th>
+                        <th>
+                            Data d'inizio
+                        </th>
+                        <th>
+                            Data fine
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.ListaScadenze)
+                    {
+                        <tr>
+                            <td>
+                                @item.Utente
+                            </td>
+                            <td>
+                                @item.Scheda
+                            </td>
+                            <td>
+                                @item.DataInizio
+                            </td>
+                            <td>
+                                @item.DataFine
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.tabella').DataTable({
+            "language": {
+                "search": "Ricerca:",
+                "paginate": {
+                    "first": "Primo",
+                    "last": "Ultimo",
+                    "next": "Prossimo",
+                    "previous": "Precedente"
+                },
+                "emptyTable": "Nessun risultato visualizzabile",
+                "info": "Risultato _START_ di _END_ su _TOTAL_ risultati",
+                "lengthMenu": "Visualizza _MENU_ risultati",
+            },
+             responsive: true
+
+        });
+    })
+
+</script>

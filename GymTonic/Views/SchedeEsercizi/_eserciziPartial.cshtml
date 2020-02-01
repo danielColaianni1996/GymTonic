@@ -1,0 +1,48 @@
+﻿@model EsercizioViewModel
+@using HtmlHelpers.BeginCollectionItemCore;
+@{
+    List<SelectListItem> listaes = (List<SelectListItem>)ViewData["ListaEsercizi"];
+    List<SelectListItem> listaesRiscaldamento = (List<SelectListItem>)ViewData["ListaEserciziRiscaldamento"];
+}
+
+@using (Html.BeginCollectionItem("Esercizi"))
+{
+    <div class="form-group single-element">
+        <input type="hidden" asp-for="IsRiscaldamento" />
+        @if (Model.IsRiscaldamento == true)
+        {
+            @Html.LabelFor(model => model.ID, "Seleziona il nome dell'esercizio")
+            @Html.DropDownListFor(model => model.ID, listaesRiscaldamento, new { data_placeholder = "seleziona un esercizio", @class = "form-control col-4 esercizio" })
+            @Html.ValidationMessageFor(model => model.ID, "", new { @class = "text-danger bigger-110 red" })
+            @Html.LabelFor(model => model.Ripetizioni, "Inserisci le ripetizioni dell'esercizio")
+            <div class="row">
+                @Html.EditorFor(model => model.Ripetizioni, new { htmlAttributes = new { @class = "form-control col-4 esercizio" } })
+                @Html.ValidationMessageFor(model => model.Ripetizioni, "", new { @class = "text-danger bigger-110 red" })
+                <input type="button" value="elimina" class="btn btn-danger elimina" />
+            </div>
+        }
+        else
+        {
+            @Html.LabelFor(model => model.ID, "Seleziona il nome dell'esercizio")
+            @Html.DropDownListFor(model => model.ID, listaes, new { data_placeholder = "seleziona un esercizio", @class = "form-control col-8 esercizio" })
+            @Html.ValidationMessageFor(model => model.ID, "", new { @class = "text-danger bigger-110 red" })
+            @Html.LabelFor(model => model.Ripetizioni, "Inserisci le ripetizioni dell'esercizio")
+            <div class="row">
+                @Html.EditorFor(model => model.Ripetizioni, new { htmlAttributes = new { @class = "form-control col-4 esercizio" } })
+                @Html.ValidationMessageFor(model => model.Ripetizioni, "", new { @class = "text-danger bigger-110 red" })
+                <input type="button" value="elimina" class="btn btn-danger elimina" />
+            </div>
+        }
+
+    </div>
+}
+
+
+
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script>
+    $("document").ready(function () {
+    $('#ID').val('@Model.ID');
+});
+</script>

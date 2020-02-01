@@ -1,0 +1,103 @@
+﻿@model List<IndexViewModel>
+
+@{
+    ViewData["Title"] = "Lista schede utente";
+}
+
+
+<div class="card shadow">
+    <div class="card-header">
+        <h6 class="card-title ">Schede</h6>
+    </div>
+    <div class="card-body">
+        <table class="display " id="dataTable" width="100%">
+            <thead>
+                <tr>
+                    <th>
+                        Utente
+                    </th>
+                    <th>
+                        Scheda
+                    </th>
+                    <th>
+                        Data inizio
+                    </th>
+                    <th>
+                        data fine
+                    </th>
+                    <th>
+                        Attiva
+                    </th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Utente)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Scheda)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DataInizio)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DataFine)
+                    </td>
+                    <td>
+                        @item.IsActive
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Modifica</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Elimina</a>
+                    </td>
+                    <td>
+                        <button id="SendScheda" data-ID="@item.Id" class=" btn btn-primary">Invial la scheda via email</button>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#dataTable').DataTable({
+            "language": {
+                "search": "Ricerca:",
+                "paginate": {
+                    "first": "Primo",
+                    "last": "Ultimo",
+                    "next": "Prossimo",
+                    "previous": "Precedente"
+                },
+                "emptyTable": "Nessun risultato visualizzabile",
+                "info": "Risultato _START_ di _END_ su _TOTAL_ risultati",
+                "lengthMenu": "Visualizza _MENU_ risultati",
+            }
+        });
+        $("#SendScheda").click(function () {
+            if (confirm("Sicuro di inviare la scheda?")) {
+                $.ajax({
+                    url: "@Url.Action("SendScheda")",
+                    type: "GET",
+                    data: { id: data },
+                    success: function() {
+                        alert("invio riuscito");
+                    },
+                    error: function () {
+                        alert("Si è verificato un errore riprovare più tardi");
+                    }
+                })
+            }
+        })
+    });
+</script>
+

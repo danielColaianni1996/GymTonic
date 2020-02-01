@@ -1,0 +1,72 @@
+﻿@model IEnumerable<GymTonic.DataBase.Table.Schede>
+
+@{
+    ViewData["Title"] = "Lista schede";
+}
+
+
+<div class="card shadow">
+    <div class="card-header">
+        <h6 class="card-title ">Schede</h6>
+    </div>
+    <div class="card-body">
+        <table class="display " id="dataTable" width="100%">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Id)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Nome)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DescrizioneScheda)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nome)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DescrizioneScheda)
+                    </td>
+
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Modifica</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Elimina</a>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#dataTable').DataTable({
+            "language": {
+                "search": "Ricerca:",
+                "paginate": {
+                    "first": "Primo",
+                    "last": "Ultimo",
+                    "next": "Prossimo",
+                    "previous": "Precedente"
+                },
+                "emptyTable": "Nessun risultato visualizzabile",
+                "info": "Risultato _START_ di _END_ su _TOTAL_ risultati",
+                "lengthMenu": "Visualizza _MENU_ risultati",
+            }
+        });
+    });
+</script>

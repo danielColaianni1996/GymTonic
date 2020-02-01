@@ -1,0 +1,32 @@
+﻿@model GymTonic.DataBase.Table.Esercizi
+
+@{
+    ViewData["Title"] = "Elimina";
+}
+
+
+<h3>Sicuro di voler eliminare questo esercizio?</h3>
+<div>
+    <h4>Esercizi</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NomeEsercizio)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NomeEsercizio)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Descrizione)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Descrizione)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="ID" />
+        <input type="submit" value="elimina" class="btn btn-danger" /> |
+        <a asp-action="Index" class="btn btn-success">torna alla lista degli esercizi</a>
+    </form>
+</div>

@@ -1,0 +1,110 @@
+﻿@model SchedeViewModel
+
+
+@{
+    ViewData["Title"] = "Inserisci/Modifica";
+    var eserciziRiscaldamento = Model.Esercizi.Where(e => e.IsRiscaldamento == true).ToList();
+    var esercizi = Model.Esercizi.Where(e => !(e.IsRiscaldamento == true)).ToList();
+}
+
+<div class="card shadow">
+    <div class="card-header">
+        <h6 class="card-title ">Modifica la scheda</h6>
+    </div>
+    <div class="card-body">
+
+
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="IdScheda" />
+            <div class="form-group">
+                <label asp-for="NomeScheda"  class="control-label">Modifica il nome della scheda</label>
+                <input asp-for="NomeScheda" value="@Model.NomeScheda" class="form-control" />
+                <span asp-validation-for="NomeScheda" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DescrizioneScheda" class="control-label">Modifica la descrizione sulla scheda</label>
+                <input asp-for="DescrizioneScheda" value="@Model.DescrizioneScheda" class="form-control" />
+                <span asp-validation-for="DescrizioneScheda" class="text-danger"></span>
+            </div>
+            @*<input type="hidden" asp-for="NomeScheda" />
+            <input type="hidden" asp-for="DescrizioneScheda" />*@
+            <div class="form-group eserciziRiscaldamento-content">
+                <label class="form-group">Modifia o inserisci gli esercizi per il riscaldamento</label>
+                @if (eserciziRiscaldamento.Count > 0)
+                {
+                    foreach (var esercizio in eserciziRiscaldamento)
+                    {
+                        await Html.RenderPartialAsync("_eserciziPartial", esercizio, new ViewDataDictionary(this.ViewData));
+                    }
+                }
+                else
+                {
+                    await Html.RenderPartialAsync("_eserciziPartial", new EsercizioViewModel() { IsRiscaldamento = true });
+                }
+            </div>
+            <div class="form-group esercizi-content">
+                <label class="form-group">Modifia o inserisci gli esercizi per il WOD</label>
+                @if (esercizi.Count > 0)
+                {
+                    foreach (var esercizio in esercizi)
+                    {
+                        await Html.RenderPartialAsync("_eserciziPartial", esercizio, new ViewDataDictionary(this.ViewData));
+                    }
+                }
+                else
+                {
+                    await Html.RenderPartialAsync("_eserciziPartial", new EsercizioViewModel());
+                }
+            </div>
+
+            <div class="form-group">
+                <input type="button" class="btn btn-primary " id="AddElement" data-tipoesercizio="true" value="aggiungi un nuovo esercizio per il riscaldamento alla scheda">
+            </div>
+            <div class="form-group">
+                <input type="button" class="btn btn-primary" id="AddElement" data-tipoesercizio="false" value="aggiungi un nuovo esercizio alla scheda">
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Salva" class="btn btn-primary" />
+            </div>
+            <div class="form-group">
+                <a type="button" asp-action="Index" class="btn btn-success">Torna alla lista delle schede </a>
+            </div>
+        </form>
+    </div>
+    
+</div>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script>
+    $('body').ready(function () {
+        $('body').on('click', '#AddElement', function () {
+            var button = $(this).attr("data-tipoesercizio");
+            console.log("" + button);
+            $.ajax({
+                url: "@Url.Action("AddEsercizio","SchedeEsercizi")",
+                type: 'GET',
+                data: {IsRiscaldamento: button}
+            }).done(function (response) {
+                if(button=="false")
+                    $(".esercizi-content").append(response);
+                else
+                    $(".eserciziRiscaldamento-content").append(response);
+            });
+
+        });
+        $('body').on('click','.elimina', function () {
+            var component = $(this).closest(".single-element");
+            var idScheda = $("#IdScheda").val();
+            var idesercizio = $(component).find("#ID").val();
+            $.ajax({
+                url: "@Url.Action("EliminaEsercizio","SchedeEsercizi")",
+                type: 'GET',
+                data: { idScheda: idScheda, idEsercizio:idesercizio }
+            }).done(function (response) {
+                $(component).remove();
+            });
+
+        });
+})
+</script>

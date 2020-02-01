@@ -1,0 +1,54 @@
+﻿@model SchedePersonaliViewModel
+@using GymTonic.DataBase.Table;
+@{
+    List<SelectListItem> listaUt = (List<SelectListItem>)ViewData["ListaUtenti"];
+    List<SelectListItem> listaSchede = (List<SelectListItem>)ViewData["ListaSchede"];
+}
+
+<div class="card shadow">
+    <div class="card-header">
+        <h6 class="card-title ">Insrisci</h6>
+    </div>
+    <div class="card-body">
+        <div class="col-md-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="UtenteId" class="control-label"> Seleziona l'utente</label>
+                    @Html.DropDownListFor(model => model.UtenteId, listaUt, new { data_placeholder = "seleziona un utente", @class = "form-control " })
+                    <span asp-validation-for="UtenteId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="SchedaId" class="control-label">Seleziona la scheda</label>
+                    @Html.DropDownListFor(model => model.SchedaId, listaSchede, new { data_placeholder = "seleziona una scheda", @class = "form-control " })
+                    <span asp-validation-for="SchedaId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DataInizio" class="control-label"></label>
+                    <input type="date" asp-for="DataInizio" class="form-control" data-provide="datepicker" data-date-autoclose="true" data-date-format="yyyy-mm-dd" />
+                    <span asp-validation-for="DataInizio" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DataFine" class="control-label"></label>
+                    <input type="date" asp-for="DataFine" class="form-control" data-provide="datepicker" data-date-autoclose="true" data-date-format="yyyy-mm-dd" />
+                    <span asp-validation-for="DataFine" class="text-danger"></span>
+                </div>
+                <div class="form-check">
+                    <label asp-for="Isactive" class="control-label"></label>
+                    <input asp-for="Isactive" />
+                    <span asp-validation-for="Isactive" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Crea" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+        <div>
+            <a asp-action="Index" class="btn btn-success">Torna alla lista</a>
+        </div>
+    </div>
+</div>
+
+
+
+

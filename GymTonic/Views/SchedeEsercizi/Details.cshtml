@@ -1,0 +1,22 @@
+﻿@model GymTonic.DataBase.Table.SchedeEsercizi
+
+@{
+    ViewData["Title"] = "Dettagli scheda";
+}
+
+<div>
+    <h4>SchedeEsercizi</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IdEsercizio)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IdEsercizio)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Modifica</a> |
+    <a asp-action="Index">Torna alla lista</a>
+</div>

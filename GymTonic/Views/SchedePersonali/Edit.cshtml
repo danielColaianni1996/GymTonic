@@ -1,0 +1,48 @@
+﻿@model IndexViewModel
+
+@{
+    ViewData["Title"] = "Inserisci";
+}
+
+<div class="card shadow">
+    <div class="card-header">
+        <h6 class="card-title ">Inserisci</h6>
+    </div>
+    <div class="card-body">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Utente" class="control-label"></label>
+                <input asp-for="Utente" class="form-control" disabled />
+                <span asp-validation-for="Utente" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Scheda" class="control-label"></label>
+                <input asp-for="Scheda" class="form-control" disabled />
+                <span asp-validation-for="Scheda" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DataInizio" class="control-label"></label>
+                <input type="date" value="@Model.DataInizio.ToString("yyyy-MM-dd")" asp-for="DataInizio" class="form-control" />
+                <span asp-validation-for="DataInizio" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DataFine" class="control-label"></label>
+                <input type="date" value="@Model.DataFine.ToString("yyyy-MM-dd")" asp-for="DataFine" class="form-control" />
+                <span asp-validation-for="DataFine" class="text-danger"></span>
+            </div>
+            <div class="form-check">
+                <label asp-for="IsActive" class="control-label"></label>
+                <input asp-for="IsActive" />
+                <span asp-validation-for="IsActive" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Salva" class="btn btn-primary" />
+            </div>
+        </form>
+        <div>
+            <a asp-action="Index" class="btn btn-success">Torna alla lista delle schede utente</a>
+        </div>
+    </div>
+</div>
