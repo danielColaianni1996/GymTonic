@@ -43,8 +43,13 @@ namespace GymTonic.Controllers
             {
                 return NotFound();
             }
+            var schedeEsercizi = SchedeViewModel.GetViewModel(id ?? 0, _context);
+            if (schedeEsercizi == null)
+            {
+                return NotFound();
+            }
 
-            return RedirectToAction("Details","SchedeEsercizi",new { id= scheda.SchedaId});
+            return View(schedeEsercizi);
         }
 
         // GET: SchedePersonalis/Create
@@ -59,12 +64,12 @@ namespace GymTonic.Controllers
         private List<SelectListItem> getSchedeList()
         {
             List<SelectListItem> schede = new List<SelectListItem>();
-            //schede.Add(new SelectListItem
-            //{
-            //    Text = "seleziona una scheda",
-            //    Value = "0"
+            schede.Add(new SelectListItem
+            {
+                Text = "seleziona una scheda",
+                Value = "0"
 
-            //});
+            });
 
             foreach (var scheda in _context.Schede.ToList())
             {
@@ -81,12 +86,12 @@ namespace GymTonic.Controllers
         private List<SelectListItem> getUtentiList()
         {
             List<SelectListItem> utenti = new List<SelectListItem>();
-            //utenti.Add(new SelectListItem
-            //{
-            //    Text = "seleziona un Utente",
-            //    Value = "0"
+            utenti.Add(new SelectListItem
+            {
+                Text = "seleziona un Utente",
+                Value = "0"
 
-            //});
+            });
 
             foreach (var utente in _context.Utenti.ToList())
             {
@@ -109,11 +114,20 @@ namespace GymTonic.Controllers
         {
             if (ModelState.IsValid)
             {
-                var schedaPers =  schedePersonali.toModel(_context);
-                _context.Add(schedaPers);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (schedePersonali.UtenteId == 0)
+                {
+                    ModelState.AddModelError("UtenteId", "selezionare un utente valido");
+                }
+                else
+                {
+                    var schedaPers = schedePersonali.toModel(_context);
+                    _context.Add(schedaPers);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
             }
+            ViewData["ListaUtenti"] = getUtentiList();
+            ViewData["ListaSchede"] = getSchedeList();
             return View(schedePersonali);
         }
 

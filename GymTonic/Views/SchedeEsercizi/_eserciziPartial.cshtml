@@ -5,9 +5,10 @@
     List<SelectListItem> listaesRiscaldamento = (List<SelectListItem>)ViewData["ListaEserciziRiscaldamento"];
 }
 
-@using (Html.BeginCollectionItem("Esercizi"))
-{
-    <div class="form-group single-element">
+
+<div class="form-group single-element">
+    @using (Html.BeginCollectionItem("Esercizi"))
+    {
         <input type="hidden" asp-for="IsRiscaldamento" />
         @if (Model.IsRiscaldamento == true)
         {
@@ -33,9 +34,9 @@
                 <input type="button" value="elimina" class="btn btn-danger elimina" />
             </div>
         }
+    }
+</div>
 
-    </div>
-}
 
 
 

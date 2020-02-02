@@ -1,39 +1,58 @@
-﻿@model GymTonic.DataBase.Table.SchedePersonali
+﻿@model SchedeViewModel
 
 @{
-    Layout = null;
+    ViewData["Title"] = "Dettaglio scheda";
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Details</title>
-</head>
-<body>
 
 <div>
-    <h4>SchedePersonali</h4>
+    <h4>SchedeEsercizi</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DataFine)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NomeScheda)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DataFine)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NomeScheda)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DataInizio)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DescrizioneScheda)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DataInizio)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DescrizioneScheda)
         </dd>
+        <dt class="col-sm-2">
+            Esercizi riscaldamento:
+        </dt>
+        <dt class="col-sm-10"></dt>
+        @foreach (var esercizio in Model.Esercizi.Where(x => x.IsRiscaldamento == true))
+        {
+            <dt class="col-sm-2"></dt>
+            <dt class="col-sm-10">
+                @Html.DisplayName(esercizio.NomeEsercizio)
+            </dt>
+            @*<dd class="col-sm-10">
+                    @Html.Display(esercizio.Descrizione)
+                </dd>*@
+        }
+        <dt class="col-sm-2">
+            Esercizi WOD:
+        </dt>
+        <dt class="col-sm-10"></dt>
+        @foreach (var esercizio in Model.Esercizi.Where(x => x.IsRiscaldamento == false))
+        {
+            <dt class="col-sm-2"></dt>
+            <dt class="col-sm-10">
+                @Html.DisplayName(esercizio.NomeEsercizio)
+            </dt>
+            @*<dd class="col-sm-10">
+                    @Html.Display(esercizio.Descrizione)
+                </dd>*@
+        }
+
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.IdScheda" class="btn btn-primary">Modifica</a> |
+    <a asp-action="Index" class="btn btn-success">Torna alla lista</a>
 </div>
-</body>
-</html>

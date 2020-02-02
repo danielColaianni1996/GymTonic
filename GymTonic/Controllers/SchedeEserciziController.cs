@@ -127,6 +127,7 @@ namespace GymTonic.Controllers
             }
             var scheda = await _context.Schede
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (scheda == null)
             {
                 return NotFound();

@@ -141,7 +141,9 @@ namespace GymTonic.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var utenti = await _context.Utenti.FindAsync(id);
+            var schedeUtente = _context.SchedePersonali.Where(s => s.UtenteId == id).ToList();
             _context.Utenti.Remove(utenti);
+            _context.SchedePersonali.RemoveRange(schedeUtente);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

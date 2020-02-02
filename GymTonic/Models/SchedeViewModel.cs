@@ -64,12 +64,15 @@ namespace GymTonic.Models
             context.SchedeEsercizi.RemoveRange(context.SchedeEsercizi.Where(x => x.IdScheda == schedaId).ToList());
             foreach (var esercizio in schedeEsercizi.Esercizi)
             {
-                context.Add(new SchedeEsercizi()
+                if (esercizio.ID != 0)
                 {
-                    IdEsercizio = esercizio.ID,
-                    IdScheda = schedaId,
-                    Ripetizioni=esercizio.Ripetizioni
-                });
+                    context.Add(new SchedeEsercizi()
+                    {
+                        IdEsercizio = esercizio.ID,
+                        IdScheda = schedaId,
+                        Ripetizioni = esercizio.Ripetizioni
+                    });
+                }
             }
             var scheda = context.Schede.Find(schedaId);
             scheda.DescrizioneScheda = schedeEsercizi.DescrizioneScheda;
@@ -81,6 +84,7 @@ namespace GymTonic.Models
         public async static void DeleteSchedaAsync(Schede scheda, GymDataContest context)
         {
             context.SchedeEsercizi.RemoveRange(context.SchedeEsercizi.Where(x => x.IdScheda == scheda.Id).ToList());
+            context.SchedePersonali.RemoveRange(context.SchedePersonali.Where(x => x.SchedaId == scheda.Id).ToList());
             context.Remove(scheda);
             await context.SaveChangesAsync();
         }
