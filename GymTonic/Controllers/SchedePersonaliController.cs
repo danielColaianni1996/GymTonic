@@ -36,15 +36,15 @@ namespace GymTonic.Controllers
             {
                 return NotFound();
             }
-
-            var schedePersonali = await _context.SchedePersonali
+            var scheda = await _context.SchedePersonali
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (schedePersonali == null)
+            
+            if (scheda == null)
             {
                 return NotFound();
             }
 
-            return View(schedePersonali);
+            return RedirectToAction("Details","SchedeEsercizi",new { id= scheda.SchedaId});
         }
 
         // GET: SchedePersonalis/Create

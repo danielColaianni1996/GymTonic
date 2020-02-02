@@ -15,6 +15,7 @@ namespace GymTonic.Models
         public int Schede { get; set;  }
         public List<IndexViewModel> ListaScadenze { get; set; }
         public List<Utenti> ListaUtenti { get; set; }
+        public List<int> UtentiChart { get; set; } = new List<int>();
         public static HomeViewModel GetViewModel (GymDataContest context)
         {
             var model = new HomeViewModel();
@@ -27,6 +28,10 @@ namespace GymTonic.Models
             model.Esercizi = context.Esercizi.Count();
             model.Utenti = context.Utenti.Count();
             model.Schede = context.SchedeEsercizi.Count();
+            for (int i =1;i<=12;i++)
+            {
+               model.UtentiChart.Add( context.Utenti.Where(x => x.DataInserimento.Month == i).Count());
+            }
 
             return model;
         }

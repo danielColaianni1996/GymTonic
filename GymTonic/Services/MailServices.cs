@@ -14,7 +14,7 @@ namespace GymTonic.Services
         
         public bool SendSchedaMail(string mailTo)
         {
-            MailMessage message = new MailMessage("daniel.colaianni@gmail.com", mailTo, "scheda Gym-tonic","Ecco in allegato la tua scheda personalizzata!!");
+            MailMessage message = new MailMessage("gymtonic2020@gmail.com", mailTo, "scheda Gym-tonic","Ecco in allegato la tua scheda personalizzata!!");
             var render = new IronPdf.HtmlToPdf();
             var pdf = render.RenderHtmlAsPdf(Template.ToString(), @"C:\Users\dani1\source\repos\GymTonic\GymTonic\");
             
@@ -26,8 +26,9 @@ namespace GymTonic.Services
                 EnableSsl = true,
                 DeliveryMethod = SmtpDeliveryMethod.Network,
                 UseDefaultCredentials = false,
-                Credentials = new NetworkCredential("daniel.colaianni96@gmail.com", "tecktonik")
+                Credentials = new NetworkCredential("gymtonic2020@gmail.com", "gym123456789")
             };
+            smtp.EnableSsl = true;
             try
             {
                 smtp.Send(message);

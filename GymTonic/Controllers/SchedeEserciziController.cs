@@ -27,15 +27,14 @@ namespace GymTonic.Controllers
         }
 
         // GET: SchedeEsercizi/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var schedeEsercizi = await _context.SchedeEsercizi
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var schedeEsercizi = SchedeViewModel.GetViewModel(id??0, _context);
             if (schedeEsercizi == null)
             {
                 return NotFound();

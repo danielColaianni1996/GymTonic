@@ -45,8 +45,8 @@
                             @Html.DisplayFor(modelItem => item.DataNascita)
                         </td>
                         <td>
-                            <a asp-action="Edit" asp-route-id="@item.Id">Modifica</a> |
-                            <a asp-action="Delete" asp-route-id="@item.Id">Elimina</a>
+                            <a asp-action="Edit" asp-route-id="@item.Id"  class="btn btn-primary">Modifica</a> |
+                            <a asp-action="Delete" asp-route-id="@item.Id"class="btn btn-danger">Elimina</a>
                         </td>
                     </tr>
                 }

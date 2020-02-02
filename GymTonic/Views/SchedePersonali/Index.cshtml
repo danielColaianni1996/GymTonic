@@ -30,6 +30,7 @@
                     </th>
                     <th></th>
                     <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -52,8 +53,11 @@
                         @item.IsActive
                     </td>
                     <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id">Modifica</a> |
-                        <a asp-action="Delete" asp-route-id="@item.Id">Elimina</a>
+                        <a asp-action="Edit" asp-route-id="@item.Id"  class="btn btn-primary">Modifica</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id"class="btn btn-danger">Elimina</a>
+                    </td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-success">Dettaglio scheda</a>
                     </td>
                     <td>
                         <button id="SendScheda" data-ID="@item.Id" class=" btn btn-primary">Invial la scheda via email</button>
@@ -81,10 +85,11 @@
                 "emptyTable": "Nessun risultato visualizzabile",
                 "info": "Risultato _START_ di _END_ su _TOTAL_ risultati",
                 "lengthMenu": "Visualizza _MENU_ risultati",
-            }
+            }, responsive: true
         });
         $("#SendScheda").click(function () {
             if (confirm("Sicuro di inviare la scheda?")) {
+                var data = $(this).attr("data-ID");
                 $.ajax({
                     url: "@Url.Action("SendScheda")",
                     type: "GET",
