@@ -27,7 +27,7 @@ namespace GymTonic.Models
             model.Scadenze = scadenze.Count();
             model.Esercizi = context.Esercizi.Count();
             model.Utenti = context.Utenti.Count();
-            model.Schede = context.SchedeEsercizi.Count();
+            model.Schede = context.Schede.Count();
             for (int i =1;i<=12;i++)
             {
                model.UtentiChart.Add( context.Utenti.Where(x => x.DataInserimento.Month == i).Count());
