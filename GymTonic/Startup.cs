@@ -1,7 +1,10 @@
 using GymTonic.DataBase;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,18 +26,37 @@ namespace GymTonic
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-           
+            createDb();
+            services.AddDbContext<GymDataContest>(options => options.UseSqlite("Data Source=C:\\Users\\dani1\\source\\repos\\GymTonic\\GymTonic\\GymTonic.db"));
+            services.AddIdentity<IdentityUser, IdentityRole>().
+                    AddEntityFrameworkStores<GymDataContest>();
             services.AddControllersWithViews();
-            services.AddMvc();
+            services.AddMvc( options=> {
+                var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+                options.Filters.Add(new AuthorizeFilter(policy));
+            });
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-            createDb();
-            services.AddDbContext<GymDataContest>(options => options.UseSqlite("Data Source=C:\\Users\\dani1\\source\\repos\\GymTonic\\GymTonic\\GymTonic.db"));
+            
         }
+        private  void CreateAdmin(IApplicationBuilder app)
+        {
+            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                var userManager = serviceScope.ServiceProvider.GetService<UserManager<IdentityUser>>();
+                IdentityUser user = new IdentityUser()
+                {
+                    UserName = "Admin@gymTonic.com",
+                    Email = "Admin@gymTonic.com",
+                    EmailConfirmed = true
+                };
+                userManager.CreateAsync(user, "Admin12345!");
+            }
+         }
 
         private void createDb()
         {
@@ -43,6 +65,7 @@ namespace GymTonic
             using (var context = new GymDataContest(options.Options))
             {
                 context.Database.EnsureCreated();
+                //context.Database.Migrate();
             }
         }
 
@@ -66,13 +89,15 @@ namespace GymTonic
             app.UseRouting();
 
             app.UseAuthorization();
-
+            app.UseAuthentication();
+             
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Account}/{action=Login}/{id?}");
             });
+            CreateAdmin(app);
         }
         
     }

@@ -19,7 +19,7 @@
 
     <!-- Custom styles for this template-->
     <link href="~/startbootstrap-sb-admin-2-gh-pages/css/sb-admin-2.min.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css"
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css" />
 </head>
 
 <body id="page-top">
@@ -140,9 +140,14 @@
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ">
-                        <il>
-                            <img src="/logo.png" alt="logo" height="70" width="100">
-                        </il>
+                        <div class="row">
+                            <div class="col-10">
+                                <img src="/logo.png" alt="logo" height="70" width="100">
+                            </div>
+                            <div class="col-2">
+                                <a href="@Url.Action("Logout","Account")">Logout</a>
+                            </div>
+                        </div>
                     </ul>
 
                 </nav>

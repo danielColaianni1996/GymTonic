@@ -1,4 +1,5 @@
 ﻿using GymTonic.DataBase.Table;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GymTonic.DataBase
 {
-    public class GymDataContest : DbContext
+    public class GymDataContest : IdentityDbContext
     {
         public GymDataContest(DbContextOptions<GymDataContest> options) : base(options)
         {
@@ -26,6 +27,7 @@ namespace GymTonic.DataBase
             modelBuilder.Entity<SchedePersonali>().ToTable("SchedePersonali");
             modelBuilder.Entity<SchedeEsercizi>().ToTable("SchedeEsercizi");
             modelBuilder.Entity<Schede>().ToTable("Schede");
+            base.OnModelCreating(modelBuilder);
         }
     }
 }
