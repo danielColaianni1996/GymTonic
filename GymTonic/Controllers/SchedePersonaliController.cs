@@ -242,7 +242,7 @@ namespace GymTonic.Controllers
             dataTemplate.Add("%TableBody%", builderRiscaldamento.ToString());
             dataTemplate.Add("%TableBodyWod%", builderWod.ToString());
             MailServices mail = new MailServices();
-            mail.LoadTemplate("SchedaBase.html");
+            mail.LoadTemplate();
             mail.CompilaTemplate(dataTemplate);
             var result= mail.SendSchedaMail(mailUser);
             if(result)

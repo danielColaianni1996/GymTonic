@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
@@ -16,7 +17,7 @@ namespace GymTonic.Services
         {
             MailMessage message = new MailMessage("gymtonic2020@gmail.com", mailTo, "scheda Gym-tonic","Ecco in allegato la tua scheda personalizzata!!");
             var render = new IronPdf.HtmlToPdf();
-            var pdf = render.RenderHtmlAsPdf(Template.ToString(), @"C:\Users\dani1\source\repos\GymTonic\GymTonic\");
+            var pdf = render.RenderHtmlAsPdf(Template.ToString(), @"C:\User\User\Documents\GymTonic\Gymtonic-master\GymTonic\");
             
             message.Attachments.Add(new Attachment(pdf.Stream, "scheda.pdf"));
             var smtp = new SmtpClient
@@ -38,12 +39,12 @@ namespace GymTonic.Services
                 return false;
             }
         }
-        public void LoadTemplate(string templaetPath)
+        public void LoadTemplate()
         {
             try
             {
-                var path = Path.GetFullPath("SchedaBase.html");
-                var file = File.ReadAllText(path);
+                ///var path = Path.GetFullPath("SchedaBase.html");
+                var file = File.ReadAllText("C:\\User\\User\\Documents\\GymTonic\\Gymtonic-master\\GymTonic\\SchedaBase.cshtml");
                 Template = new StringBuilder(file);
             }catch(Exception ex)
             {
