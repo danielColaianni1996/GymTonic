@@ -38,7 +38,7 @@ namespace GymTonic.Controllers
             }
             var scheda = await _context.SchedePersonali
                 .FirstOrDefaultAsync(m => m.Id == id);
-            
+
             if (scheda == null)
             {
                 return NotFound();
@@ -75,7 +75,7 @@ namespace GymTonic.Controllers
             {
                 schede.Add(new SelectListItem
                 {
-                    Text = scheda.Nome ,
+                    Text = scheda.Nome,
                     Value = scheda.Id.ToString()
 
                 });
@@ -97,12 +97,12 @@ namespace GymTonic.Controllers
             {
                 utenti.Add(new SelectListItem
                 {
-                    Text = string.Format("{0} {1}", utente.Nome,utente.Cognome),
+                    Text = string.Format("{0} {1}", utente.Nome, utente.Cognome),
                     Value = utente.Id.ToString()
 
                 });
             }
-            return utenti;            
+            return utenti;
         }
 
         // POST: SchedePersonalis/Create
@@ -139,7 +139,7 @@ namespace GymTonic.Controllers
                 return NotFound();
             }
 
-            IndexViewModel schedePersonali = await SchedePersonaliViewModel.GetIndexViewModel(id??0,_context);
+            IndexViewModel schedePersonali = await SchedePersonaliViewModel.GetIndexViewModel(id ?? 0, _context);
             if (schedePersonali == null)
             {
                 return NotFound();
@@ -161,7 +161,7 @@ namespace GymTonic.Controllers
 
             if (ModelState.IsValid)
             {
-                if(schedePersonali.DataInizio > schedePersonali.DataFine)
+                if (schedePersonali.DataInizio > schedePersonali.DataFine)
                 {
                     ModelState.AddModelError("DataInizio", "La data di inizio è maggiore della data di scadenza");
                     return View(schedePersonali);
@@ -222,17 +222,17 @@ namespace GymTonic.Controllers
         public ActionResult SendScheda(int id)
         {
             var schedaUtente = _context.SchedePersonali.Find(id);
-            var scheda = _context.SchedeEsercizi.Where(x=> x.IdScheda==schedaUtente.SchedaId).ToList();
+            var scheda = _context.SchedeEsercizi.Where(x => x.IdScheda == schedaUtente.SchedaId).ToList();
             var mailUser = _context.Utenti.Find(schedaUtente.UtenteId).Mail;
             Dictionary<string, string> dataTemplate = new Dictionary<string, string>();
             StringBuilder builderRiscaldamento = new StringBuilder();
             StringBuilder builderWod = new StringBuilder();
-            foreach(var esercizio in scheda)
+            foreach (var esercizio in scheda)
             {
                 var ese = _context.Esercizi.Find(esercizio.IdEsercizio);
-                if(ese.IsRiscaldamento)
+                if (ese.IsRiscaldamento)
                 {
-                    builderRiscaldamento.Append(string.Format("<tr> <td> {0}</td> <td>{1}</td> <td> {2}</td> </tr>",ese.NomeEsercizio,esercizio.Ripetizioni,ese.Descrizione));
+                    builderRiscaldamento.Append(string.Format("<tr> <td> {0}</td> <td>{1}</td> <td> {2}</td> </tr>", ese.NomeEsercizio, esercizio.Ripetizioni, ese.Descrizione));
                 }
                 else
                 {
@@ -244,11 +244,11 @@ namespace GymTonic.Controllers
             MailServices mail = new MailServices();
             mail.LoadTemplate();
             mail.CompilaTemplate(dataTemplate);
-            var result= mail.SendSchedaMail(mailUser);
-            if(result)
-                return Json(new { message= "Success" });
+            var result = mail.SendSchedaMail(mailUser);
+            if (result)
+                return Json(new { status = "Success" });
             else
-                return Json(new { message = "Error" });
+                return Json(new { status = "Error" });
         }
     }
 }

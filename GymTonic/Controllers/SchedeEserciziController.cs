@@ -34,7 +34,7 @@ namespace GymTonic.Controllers
                 return NotFound();
             }
 
-            var schedeEsercizi = SchedeViewModel.GetViewModel(id??0, _context);
+            var schedeEsercizi = SchedeViewModel.GetViewModel(id ?? 0, _context);
             if (schedeEsercizi == null)
             {
                 return NotFound();
@@ -49,10 +49,10 @@ namespace GymTonic.Controllers
             return View();
         }
         [HttpGet]
-        public ActionResult GetListEsercizi ()
+        public ActionResult GetListEsercizi()
         {
             List<SelectListItem> esercizi = new List<SelectListItem>();
-            foreach( var esercizio in _context.Esercizi.ToList())
+            foreach (var esercizio in _context.Esercizi.ToList())
             {
                 esercizi.Add(new SelectListItem
                 {
@@ -82,7 +82,7 @@ namespace GymTonic.Controllers
         }
         public async Task<ActionResult> EliminaEsercizio(int idScheda, int idEsercizio)
         {
-             var scheda = _context.SchedeEsercizi.Where(sc => sc.IdScheda == idScheda && sc.IdEsercizio == idEsercizio).FirstOrDefault();
+            var scheda = _context.SchedeEsercizi.Where(sc => sc.IdScheda == idScheda && sc.IdEsercizio == idEsercizio).FirstOrDefault();
             if (scheda != null)
             {
                 _context.Remove(scheda);
@@ -93,8 +93,8 @@ namespace GymTonic.Controllers
         // GET: SchedeEsercizi/Edit/5
         public IActionResult Edit(int id)
         {
-            
-            var schedeEsercizi = _context.SchedeEsercizi.Where(x=> x.IdScheda==id);
+
+            var schedeEsercizi = _context.SchedeEsercizi.Where(x => x.IdScheda == id);
             if (schedeEsercizi == null)
             {
                 return NotFound();
@@ -112,7 +112,24 @@ namespace GymTonic.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(SchedeViewModel schedeEsercizi)
         {
-            SchedeViewModel.UpdateModel(schedeEsercizi,_context);
+            if (schedeEsercizi.Esercizi == null)
+            {
+                ModelState.AddModelError("", "Inserire degli esercizi");
+                ViewData["ListaEserciziRiscaldamento"] = getEserciziRiscaldamento();
+                ViewData["ListaEsercizi"] = getEsercizi();
+                return View(schedeEsercizi);
+            }
+            foreach (var esercizi in schedeEsercizi.Esercizi)
+            {
+                if (esercizi.ID == 0)
+                {
+                    ModelState.AddModelError("", "Tutti gli esercizi inseriti devono essere validi");
+                    ViewData["ListaEserciziRiscaldamento"] = getEserciziRiscaldamento();
+                    ViewData["ListaEsercizi"] = getEsercizi();
+                    return View(schedeEsercizi);
+                }
+            }
+            SchedeViewModel.UpdateModel(schedeEsercizi, _context);
             ViewData["ListaEserciziRiscaldamento"] = getEserciziRiscaldamento();
             ViewData["ListaEsercizi"] = getEsercizi();
             return RedirectToAction(nameof(Index));
@@ -148,7 +165,7 @@ namespace GymTonic.Controllers
         [HttpGet]
         public IActionResult AddEsercizio(bool IsRiscaldamento)
         {
-            
+
             ViewData["ListaEserciziRiscaldamento"] = getEserciziRiscaldamento();
             ViewData["ListaEsercizi"] = getEsercizi();
             EsercizioViewModel es = new EsercizioViewModel();

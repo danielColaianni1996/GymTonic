@@ -30,13 +30,13 @@
                                     @Html.PasswordFor(model => model.Password, new { @class = "form-control form-control-user" })
                                     @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger bigger-110 red" })
                                 </div>
-                                <div class="form-group">
+                                @*<div class="form-group">
                                     <div class="form-check-inline">
                                         @Html.Label("", "Ricordami")
                                         @Html.CheckBoxFor(model => model.Ricordami, new { @class = "form-control form-control-user" })
                                         @Html.ValidationMessageFor(model => model.Ricordami, "", new { @class = "text-danger bigger-110 red" })
                                     </div>
-                                </div>
+                                </div>*@
                                 <input type="submit" value="Login" class="btn btn-primary btn-user btn-block" />
                             }
                             @*<div class="text-center">

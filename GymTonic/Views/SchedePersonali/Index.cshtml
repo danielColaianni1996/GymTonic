@@ -36,33 +36,33 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Utente)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Scheda)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DataInizio)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DataFine)
-                    </td>
-                    <td>
-                        @item.IsActive
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id"  class="btn btn-primary">Modifica</a> |
-                        <a asp-action="Delete" asp-route-id="@item.Id"class="btn btn-danger">Elimina</a>
-                    </td>
-                    <td>
-                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-success">Dettaglio scheda</a>
-                    </td>
-                    <td>
-                        <button id="SendScheda" data-ID="@item.Id" class=" btn btn-primary">Invia la scheda via email</button>
-                    </td>
-                </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Utente)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Scheda)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DataInizio)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DataFine)
+                        </td>
+                        <td>
+                            @item.IsActive
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Modifica</a> |
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Elimina</a>
+                        </td>
+                        <td>
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-success">Dettaglio scheda</a>
+                        </td>
+                        <td>
+                            <button data-ID="@item.Id" class=" btn btn-primary SendScheda">Invia la scheda via email</button>
+                        </td>
+                    </tr>
                 }
             </tbody>
         </table>
@@ -87,7 +87,7 @@
                 "lengthMenu": "Visualizza _MENU_ risultati",
             }, responsive: true
         });
-        $("#SendScheda").click(function () {
+        $(".SendScheda").click(function () {
             if (confirm("Sicuro di inviare la scheda?")) {
                 var data = $(this).attr("data-ID");
                 $.ajax({

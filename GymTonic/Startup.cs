@@ -27,7 +27,7 @@ namespace GymTonic
         public void ConfigureServices(IServiceCollection services)
         {
             createDb();
-            services.AddDbContext<GymDataContest>(options => options.UseSqlite("Data Source=C:\\Users\\dani1\\source\\repos\\GymTonic\\GymTonic\\GymTonic.db"));
+            services.AddDbContext<GymDataContest>(options => options.UseSqlite("Data Source= GymTonic.db"));
             services.AddIdentity<IdentityUser, IdentityRole>().
                     AddEntityFrameworkStores<GymDataContest>();
             services.AddControllersWithViews();
@@ -61,7 +61,7 @@ namespace GymTonic
         private void createDb()
         {
             DbContextOptionsBuilder<GymDataContest> options = new DbContextOptionsBuilder<GymDataContest>();
-            options = options.UseSqlite("Data Source=C:\\Users\\dani1\\source\\repos\\GymTonic\\GymTonic\\GymTonic.db");
+            options = options.UseSqlite("Data Source = GymTonic.db");
             using (var context = new GymDataContest(options.Options))
             {
                 context.Database.EnsureCreated();

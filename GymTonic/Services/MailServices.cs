@@ -17,7 +17,7 @@ namespace GymTonic.Services
         {
             MailMessage message = new MailMessage("gymtonic2020@gmail.com", mailTo, "scheda Gym-tonic","Ecco in allegato la tua scheda personalizzata!!");
             var render = new IronPdf.HtmlToPdf();
-            var pdf = render.RenderHtmlAsPdf(Template.ToString(), @"C:\User\User\Documents\GymTonic\Gymtonic-master\GymTonic\");
+            var pdf = render.RenderHtmlAsPdf(Template.ToString());
             
             message.Attachments.Add(new Attachment(pdf.Stream, "scheda.pdf"));
             var smtp = new SmtpClient
@@ -44,7 +44,7 @@ namespace GymTonic.Services
             try
             {
                 ///var path = Path.GetFullPath("SchedaBase.html");
-                var file = File.ReadAllText("C:\\User\\User\\Documents\\GymTonic\\Gymtonic-master\\GymTonic\\SchedaBase.cshtml");
+                var file = File.ReadAllText("C:\\Users\\dani1\\source\\repos\\GymTonic\\GymTonic\\SchedaBase.html");
                 Template = new StringBuilder(file);
             }catch(Exception ex)
             {
