@@ -1,0 +1,52 @@
+﻿@model GymTonic.DataBase.Table.Abbonamenti
+
+@{
+    ViewData["Title"] = "Elimina";
+    Layout = "_Layout";
+}
+
+
+
+<h3>Sicuro di voler eliminare questo abbonamento?</h3>
+<div>
+    <h4>Abbonamenti</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.UtenteId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.UtenteId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TipoAbbonamentoId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TipoAbbonamentoId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CounterAbbonamenti)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CounterAbbonamenti)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.InizioAbbonamento)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.InizioAbbonamento)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FineAbbonamento)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FineAbbonamento)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Elimina" class="btn btn-danger" /> |
+        <a asp-action="Index" class="btn btn-success">Torna alla lista</a>
+    </form>
+</div>

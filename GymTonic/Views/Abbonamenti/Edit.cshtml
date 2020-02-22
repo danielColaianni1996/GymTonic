@@ -1,0 +1,51 @@
+﻿@model GymTonic.DataBase.Table.Abbonamenti
+
+@{
+    ViewData["Title"] = "Modifica";
+    Layout = "_Layout";
+}
+
+    <div class="card shadow">
+        <div class="card-header">
+            <h6 class="card-title ">Inserisci</h6>
+        </div>
+        <div class="card-body">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+                <div class="form-group">
+                    <label asp-for="UtenteId" class="control-label"></label>
+                    <input asp-for="UtenteId" class="form-control" />
+                    <span asp-validation-for="UtenteId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TipoAbbonamentoId" class="control-label"></label>
+                    <input asp-for="TipoAbbonamentoId" class="form-control" />
+                    <span asp-validation-for="TipoAbbonamentoId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CounterAbbonamenti" class="control-label"></label>
+                    <input asp-for="CounterAbbonamenti" class="form-control" />
+                    <span asp-validation-for="CounterAbbonamenti" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="InizioAbbonamento" class="control-label"></label>
+                    <input asp-for="InizioAbbonamento" class="form-control" />
+                    <span asp-validation-for="InizioAbbonamento" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="FineAbbonamento" class="control-label"></label>
+                    <input asp-for="FineAbbonamento" class="form-control" />
+                    <span asp-validation-for="FineAbbonamento" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Salva" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+<div>
+    <a asp-action="Index" class=" btn btn-success">Torna alla lista</a>
+</div>
+

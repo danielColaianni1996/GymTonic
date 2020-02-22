@@ -65,7 +65,9 @@
                 </div>
             </li>
             <hr class="sidebar-divider">
-
+            <div class="sidebar-heading">
+                Gestione schede - esercizi
+            </div>
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEsercizi" aria-expanded="true" aria-controls="collapseTwo">
@@ -80,7 +82,6 @@
                     </div>
                 </div>
             </li>
-            <hr class="sidebar-divider">
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
@@ -96,7 +97,7 @@
                     </div>
                 </div>
             </li>
-            <hr class="sidebar-divider">
+
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
@@ -113,7 +114,23 @@
                 </div>
             </li>
             <hr class="sidebar-divider d-none d-md-block">
-
+            <div class="sidebar-heading">
+                Gestione abbonamenti
+            </div>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAbbonamenti" aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="far fa-credit-card"></i>
+                    <span>Abbonamenti</span>
+                </a>
+                <div id="collapseAbbonamenti" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Gestione schede utenti:</h6>
+                        <a class="collapse-item" href="@Url.Action("Create","Abbonamenti")">Inserisci</a>
+                        <a class="collapse-item" href="@Url.ActionLink("Index","Abbonamenti")">Lista Abbonamenti</a>
+                    </div>
+                </div>
+            </li>
+            <hr class="sidebar-divider d-none d-md-block">
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
