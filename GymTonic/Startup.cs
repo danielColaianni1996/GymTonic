@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Hosting.Internal;
 using System;
+using System.Threading.Tasks;
 
 namespace GymTonic
 {
@@ -27,7 +28,7 @@ namespace GymTonic
         public void ConfigureServices(IServiceCollection services)
         {
             createDb();
-            services.AddDbContext<GymDataContest>(options => options.UseSqlite("Data Source= GymTonic.db"));
+            services.AddDbContext<GymDataContest>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddIdentity<IdentityUser, IdentityRole>().
                     AddEntityFrameworkStores<GymDataContest>();
             services.AddControllersWithViews();
@@ -43,7 +44,7 @@ namespace GymTonic
             });
             
         }
-        private  void CreateAdmin(IApplicationBuilder app)
+        private async Task CreateAdminAsync(IApplicationBuilder app)
         {
             using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
@@ -54,14 +55,14 @@ namespace GymTonic
                     Email = "Admin@gymTonic.com",
                     EmailConfirmed = true
                 };
-                userManager.CreateAsync(user, "Admin12345!");
+                IdentityResult result = await userManager.CreateAsync(user, "Admin12345!");
             }
          }
 
         private void createDb()
         {
             DbContextOptionsBuilder<GymDataContest> options = new DbContextOptionsBuilder<GymDataContest>();
-            options = options.UseSqlite("Data Source = GymTonic.db");
+            options = options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             using (var context = new GymDataContest(options.Options))
             {
                 context.Database.EnsureCreated();
@@ -97,7 +98,7 @@ namespace GymTonic
                     name: "default",
                     pattern: "{controller=Account}/{action=Login}/{id?}");
             });
-            CreateAdmin(app);
+            CreateAdminAsync(app);
         }
         
     }

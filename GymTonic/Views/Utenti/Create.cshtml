@@ -2,6 +2,8 @@
 
 @{
     ViewData["Title"] = "Inserisci Utente";
+    List<SelectListItem> listaOrari = (List<SelectListItem>)ViewData["listaOrari"];
+    List<SelectListItem> listaSesso = (List<SelectListItem>)ViewData["Sesso"];
 }
 
 
@@ -32,6 +34,26 @@
                 <label asp-for="DataNascita" class="control-label"></label>
                 <input type="date" asp-for="DataNascita" class="form-control" data-provide="datepicker" data-date-autoclose="true" data-date-format="yyyy-mm-dd">
                 <span asp-validation-for="DataNascita" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Sesso" class="control-label"></label>
+                @Html.DropDownListFor(model => model.Sesso, listaSesso, new { data_placeholder = "seleziona un Orario", @class = "form-control " })
+                <span asp-validation-for="Sesso" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdOrari" class="control-label"></label>
+                @Html.DropDownListFor(model => model.IdOrari, listaOrari, new { data_placeholder = "seleziona un Orario", @class = "form-control " })
+                <span asp-validation-for="IdOrari" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Residenza" class="control-label"></label>
+                <input asp-for="Residenza" class="form-control" />
+                <span asp-validation-for="Residenza" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Telefono" class="control-label"></label>
+                <input asp-for="Telefono" class="form-control" />
+                <span asp-validation-for="Telefono" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Inserisci" class="btn btn-primary" />

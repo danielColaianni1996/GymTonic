@@ -44,7 +44,7 @@ namespace GymTonic.Services
             try
             {
                 ///var path = Path.GetFullPath("SchedaBase.html");
-                var file = File.ReadAllText("C:\\Users\\dani1\\source\\repos\\GymTonic\\GymTonic\\SchedaBase.html");
+                var file = File.ReadAllText("h:\\root\\home\\daniel1996-001\\www\\schedabase\\SchedaBase.html");
                 Template = new StringBuilder(file);
             }catch(Exception ex)
             {

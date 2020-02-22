@@ -46,6 +46,8 @@ namespace GymTonic.Controllers
         // GET: Utentis/Create
         public IActionResult Create()
         {
+            ViewData["listaOrari"] = GetOrari();
+            ViewData["Sesso"] = GetSesso();
             return View();
         }
 
@@ -54,15 +56,18 @@ namespace GymTonic.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Mail,Nome,Cognome,DataNascita")] Utenti utenti)
+        public async Task<IActionResult> Create(Utenti utenti)
         {
             if (ModelState.IsValid)
             {
                 utenti.DataInserimento = DateTime.Now;
+                utenti.Eta = new DateTime(DateTime.Now.Subtract(utenti.DataNascita).Ticks).Year - 1;
                 _context.Add(utenti);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["listaOrari"] = GetOrari();
+            ViewData["Sesso"] = GetSesso();
             return View(utenti);
         }
 
@@ -79,6 +84,8 @@ namespace GymTonic.Controllers
             {
                 return NotFound();
             }
+            ViewData["listaOrari"] = GetOrari();
+            ViewData["Sesso"] = GetSesso();
             return View(utenti);
         }
 
@@ -87,7 +94,7 @@ namespace GymTonic.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Mail,Nome,Cognome,DataNascita")] Utenti utenti)
+        public async Task<IActionResult> Edit(int id, Utenti utenti)
         {
             if (id != utenti.Id)
             {
@@ -114,6 +121,8 @@ namespace GymTonic.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["listaOrari"] = GetOrari();
+            ViewData["Sesso"] = GetSesso();
             return View(utenti);
         }
 
@@ -151,6 +160,27 @@ namespace GymTonic.Controllers
         private bool UtentiExists(int id)
         {
             return _context.Utenti.Any(e => e.Id == id);
+        }
+        private List<SelectListItem> GetOrari ()
+        {
+            var orari = _context.OrariLavorativi.ToList();
+            var result = new List<SelectListItem>();
+            result.Add(new SelectListItem { Text = "Seleziona un orario lavorativo", Value = "" });
+            foreach (var orario in orari)
+            {
+                result.Add(new SelectListItem { Text = orario.Descrizione, Value = orario.Id.ToString() });
+            }
+            return result;
+        }
+        private List<SelectListItem> GetSesso()
+        {
+            var orari = _context.OrariLavorativi.ToList();
+            var result = new List<SelectListItem>();
+            result.Add(new SelectListItem { Text = "Seleziona", Value = "" });
+            result.Add(new SelectListItem { Text = "Uomo", Value = "M" });
+            result.Add(new SelectListItem { Text = "Donna", Value = "F" });
+            
+            return result;
         }
     }
 }
