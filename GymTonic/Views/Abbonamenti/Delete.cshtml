@@ -1,4 +1,4 @@
-﻿@model GymTonic.DataBase.Table.Abbonamenti
+﻿@model AbbonamentiViewModel.IndexViewModel
 
 @{
     ViewData["Title"] = "Elimina";
@@ -12,38 +12,38 @@
     <h4>Abbonamenti</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UtenteId)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Utente)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UtenteId)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Utente)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TipoAbbonamentoId)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Abbonamenti)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TipoAbbonamentoId)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Abbonamenti)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CounterAbbonamenti)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Attivo)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CounterAbbonamenti)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Attivo)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.InizioAbbonamento)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DataInizio)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.InizioAbbonamento)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DataInizio)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FineAbbonamento)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DataFine)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FineAbbonamento)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DataFine)
         </dd>
     </dl>
-    
+
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
         <input type="submit" value="Elimina" class="btn btn-danger" /> |

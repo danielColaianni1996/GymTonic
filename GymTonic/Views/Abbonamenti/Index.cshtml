@@ -1,5 +1,4 @@
-﻿@model IEnumerable<GymTonic.DataBase.Table.Abbonamenti>
-
+﻿@model IEnumerable<AbbonamentiViewModel.IndexViewModel>
 @{
     ViewData["Title"] = "Lista Abbonamenti";
     Layout = "_Layout";
@@ -15,19 +14,19 @@
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.UtenteId)
+                        @Html.DisplayNameFor(model => model.Utente)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.TipoAbbonamentoId)
+                        @Html.DisplayNameFor(model => model.Abbonamenti)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.CounterAbbonamenti)
+                        @Html.DisplayNameFor(model => model.Attivo)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.InizioAbbonamento)
+                        @Html.DisplayNameFor(model => model.DataInizio)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.FineAbbonamento)
+                        @Html.DisplayNameFor(model => model.DataFine)
                     </th>
                     <th></th>
                 </tr>
@@ -37,19 +36,19 @@
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.UtenteId)
+                            @Html.DisplayFor(modelItem => item.Utente)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.TipoAbbonamentoId)
+                            @Html.DisplayFor(modelItem => item.Abbonamenti)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.CounterAbbonamenti)
+                            @item.Attivo
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.InizioAbbonamento)
+                            @Html.DisplayFor(modelItem => item.DataInizio)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.FineAbbonamento)
+                            @Html.DisplayFor(modelItem => item.DataFine)
                         </td>
                         <td>
                             <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Modifica</a> |
